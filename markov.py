@@ -36,10 +36,13 @@ class MarkovChain(object):
     def predict(self, n=1, start=None):
         if start is None:
             last_word = self.break_string
+            words = deque()
         else:
+            # only add the starting word to the beginning if it's not a break
             last_word = start
+            words = deque([last_word])
+            n -= 1
 
-        words = deque([last_word])
 
         for i in range(n):
             new_word = choice(self.connections[last_word])
